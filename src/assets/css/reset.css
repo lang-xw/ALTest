@@ -15,3 +15,12 @@ a{
 img{
     vertical-align: top;
 }
+.top-tabbar-hide{
+    position:relative;
+    z-index: 9;
+    height: 100vh;
+    background-color: #fff;
+
+    overflow-y: auto;
+    /* 在当前页面滚动，*/
+}

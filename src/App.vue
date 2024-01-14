@@ -1,11 +1,17 @@
 <script setup>
 import TabBar from "@/components/TabBar.vue";
+
+import { useRoute } from "vue-router";
+
+
+// const route=useRoute() //获取当前路由
+
 </script>
 
 <template>
-  <h2>APP</h2>
   <router-view/>
-  <tab-bar></tab-bar>
+<!--  <tab-bar v-if="!route.meta.HideTabbar"></tab-bar>-->
+  <tab-bar/>
 </template>
 
 <style scoped>

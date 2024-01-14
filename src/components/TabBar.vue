@@ -2,13 +2,13 @@
   import tabbarData from "@/assets/data/tabbarData.js";
   import {ref} from "vue";
   import router from "@/routers/index.js";
-  const  currentIndex  =ref(0)
+
 
   const active = ref('home')
 </script>
 
 <template>
-  <div class="tabbar">
+  <div class="tabbar" >
 
     <!--    使用vantUI库-->
     <van-tabbar v-model="active" active-color="orange" route>

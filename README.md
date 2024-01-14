@@ -1,29 +1,46 @@
-# ALTEST
+#### 修改第三方UI组件库的样式
 
-This template should help get you started developing with Vue 3 in Vite.
+- :deep(子组件的选择器){ 
+}可以修改子组件的样式
 
-## Recommended IDE Setup
+##### 跳转到city页面，需要隐藏下面的额tabbar
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+- 1.useRoute()获取当前活跃的路由，通过设置meta属性，来v-if判断显示隐藏
+> vue文件
+> ```vue
+> <script setup="">
+>   import {useRoute} from "vue-router";
+>
+>   const route = useRoute() //获取当前路由
+> </script>
+>
+> <template>
+>   <son v-if="!route.meta.HideTabbar"></son>
+> </template>
+> 
+><style scoped>
+></style>
+> ```
+> 路由文件设置
+> ```javascript
+> {
+>   path:'/city',
+>   component:()=>import("../views/city/city.vue"),   //路由懒加载
+>   meta:{
+>       HideTabbar:true
+>   }
+> }
+> ```
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
+- 2.通过CSS
+```css
+.top-tabbar-hide{
+    position:relative;
+    z-index: 9;
+    height: 100vh;
+    background-color: #fff;
+    
+    overflow-y: auto;
+    /* 在当前页面滚动，*/
+}
 ```
