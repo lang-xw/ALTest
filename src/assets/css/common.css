@@ -1,3 +1,7 @@
+:root{
+    /*全局修改search搜索图标颜色*/
+    --van-search-left-icon-color:orange !important;
+}
 body{
     font-size:14px;
     /*font-family: 新宋体, serif;*/
