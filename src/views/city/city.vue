@@ -13,6 +13,20 @@
   //tag切换数据
   const tabActive = ref(0)
 
+  //1.在组件内部进行网络请求
+  // import AxRequest from '../../service/requset/index.js'
+  // AxRequest.get({
+  //   url:'/city/all'
+  // }).then(res=>{
+  //   console.log(res)
+  // }).catch(err=>{
+  //   console.log(err)
+  // })
+  //2.外部封装，import引入使用
+  import { getAllCity }  from '@/service'
+  getAllCity().then(res=>{
+    console.log(res)
+  })
 </script>
 
 <template>
