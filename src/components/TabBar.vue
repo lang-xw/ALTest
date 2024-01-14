@@ -3,68 +3,22 @@
   import {ref} from "vue";
   import router from "@/routers/index.js";
   const  currentIndex  =ref(0)
-  function tabClick(index){
-    currentIndex.value = index
-  }
 
-  //为我们的img src提供url
-  function getImgUrl(image){
-      //相对路径
-      //文件当前路径
-      return new URL(`../assets/img/${image}`,import.meta.url).href
-  }
-
-  function routerClick(path){
-    router.push(path)
-  }
+  const active = ref('home')
 </script>
 
 <template>
   <div class="tabbar">
-    <template v-for="(item,index) in tabbarData">
-      <div class="tabbar-item"
-           :class="{active:currentIndex===index}"
-           @click="tabClick(index);
-           routerClick(item.path)"
-      >
-        <!--
-              这里src不能使用item.img,识别不了
-              我们要用到 new URL()
-        -->
-        <img :src="getImgUrl(item.img)" alt="">
-        <span class="text">{{item.text}}</span>
-      </div>
-    </template>
+
+    <!--    使用vantUI库-->
+    <van-tabbar v-model="active" active-color="orange" route>
+      <van-tabbar-item name="home" icon="home-o" to="/home">首页</van-tabbar-item>
+      <van-tabbar-item name="search" icon="star-o" to="/favor">收藏</van-tabbar-item>
+      <van-tabbar-item name="friends" icon="gem-o" to="/order">订单</van-tabbar-item>
+      <van-tabbar-item name="setting" icon="other-pay" to="/message">消息</van-tabbar-item>
+    </van-tabbar>
   </div>
 </template>
+<!---->
+<style scoped></style>
 
-<style scoped>
-  .tabbar{
-    position: fixed;
-    bottom:0;
-    right:0;
-    left:0;
-    height:50px;
-    display:flex;
-
-    padding-top: 3px;
-    border-top:1px solid #f3f3f3;
-  }
-  .tabbar-item{
-    flex:1;
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  .tabbar-item img{
-    width:32px;
-  }
-  .tabbar-item .text{
-    font-size: 12px;
-    margin-top: 2px;
-  }
-  .active{
-    color:orange;
-  }
-</style>
