@@ -1,25 +1,40 @@
 <script setup>
+  import tabbarData from "@/assets/data/tabbarData.js";
+  import {ref} from "vue";
+  import router from "@/routers/index.js";
+  const  currentIndex  =ref(0)
+  function tabClick(index){
+    currentIndex.value = index
+  }
 
+  //为我们的img src提供url
+  function getImgUrl(image){
+      //相对路径
+      //文件当前路径
+      return new URL(`../assets/img/${image}`,import.meta.url).href
+  }
+
+  function routerClick(path){
+    router.push(path)
+  }
 </script>
 
 <template>
   <div class="tabbar">
-    <div class="tabbar-item">
-      <img src="../assets/img/tabhome.png" alt="">
-      <span class="text">首页</span>
-    </div>
-    <div class="tabbar-item">
-      <img src="../assets/img/tabfavor.png" alt="">
-      <span class="text">收藏</span>
-    </div>
-    <div class="tabbar-item">
-      <img src="../assets/img/taborder.png" alt="">
-      <span class="text">订单</span>
-    </div>
-    <div class="tabbar-item">
-      <img src="../assets/img/tabmessage.png" alt="">
-      <span class="text">消息</span>
-    </div>
+    <template v-for="(item,index) in tabbarData">
+      <div class="tabbar-item"
+           :class="{active:currentIndex===index}"
+           @click="tabClick(index);
+           routerClick(item.path)"
+      >
+        <!--
+              这里src不能使用item.img,识别不了
+              我们要用到 new URL()
+        -->
+        <img :src="getImgUrl(item.img)" alt="">
+        <span class="text">{{item.text}}</span>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -48,5 +63,8 @@
   .tabbar-item .text{
     font-size: 12px;
     margin-top: 2px;
+  }
+  .active{
+    color:orange;
   }
 </style>
