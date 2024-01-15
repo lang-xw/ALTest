@@ -1,6 +1,10 @@
 <script setup>
   import {computed} from "vue";
+  import city from "@/stores/modules/city.js";
+  import {useRouter} from "vue-router";
+  import useCityStore from "@/stores/modules/city.js";
 
+  const router =useRouter()
   const props = defineProps({
     groupData:{
       type:Object,
@@ -15,6 +19,17 @@
     list.unshift("#")
     return list
   })
+
+  //选中城市
+  const cityStore = useCityStore()
+  const cityClick = (item) =>{
+    //拿到点击的数据，用pinia进行管理
+    cityStore.currentCity = item
+    // console.log(item)
+
+    //页面回退到上一级
+    router.back()
+  }
 </script>
 
 <template>
@@ -24,7 +39,7 @@
       <van-index-anchor index="热门" />
       <div class="list">
         <template v-for="(item,index) in groupData.hotCities" :key="index">
-          <div class="hot-city">
+          <div class="hot-city" @click="cityClick(item)">
             {{ item.cityName }}
           </div>
         </template>
@@ -34,7 +49,7 @@
         <van-index-anchor :index="item.group" />
         <template v-for="(cityItem,cityIndex) in item.cities">
           <div class="city">
-            <van-cell :title="cityItem.cityName" />
+            <van-cell :title="cityItem.cityName"  @click="cityClick(cityItem)"/>
           </div>
         </template>
       </template>

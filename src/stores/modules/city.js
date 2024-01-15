@@ -3,7 +3,10 @@ import {getAllCity} from "@/service/index.js";
 
 const useCityStore=defineStore('city',{
     state:()=>({
-        allCities:{}
+        allCities:{},
+
+        //默认值，第一次加载
+        currentCity:{ cityName:"广州" }
     }),
     actions:{
       async fetchAllCities(){
