@@ -48,3 +48,28 @@
 
 #### 发送网络请求axios
 - 封装axios  service/request/index.js
+
+  - 网络请求
+     - 1.在组件内部使用
+       - 在组件内部进行网络请求,直接使用封装的axios
+         ```javascript
+            import AxRequest from '../../service/requset/index.js'
+              AxRequest.get({
+                url:'/city/all'
+              }).then(res=>{
+                console.log(res)
+              }).catch(err=>{
+                console.log(err)
+              })
+         ```
+         - 外部封装，import引入使用，需要更改时在对应的外部封装文件就可以修改
+           ```javascript
+              import { getAllCity }  from '@/service'
+                    const allCity=ref()
+                    getAllCity().then(res=>{
+                    console.log(res)
+                    allCity.value = res.data
+              })
+           ```
+     - 2.在状态管理Pinia使用
+         ![img.png](src/assets/img/img.png)
