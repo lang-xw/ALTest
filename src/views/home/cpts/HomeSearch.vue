@@ -5,7 +5,7 @@ import { useRouter } from "vue-router";
 import useCityStore from "@/stores/modules/city.js";
 import { storeToRefs } from "pinia";
 import { formatDate, rangeDate } from "@/utils/formatDate.js";
-import { ref } from "vue";
+import {computed, ref} from "vue";
 
 const positionClick = () => {
   navigator.geolocation.getCurrentPosition(
@@ -32,23 +32,33 @@ const cityStore = useCityStore()
 const { currentCity } = storeToRefs(cityStore)
 
 //日期选择,动态显示
-const nowDate = new Date()
-const nextDate = new Date()
-nextDate.setDate(nowDate.getDate() + 1)
+// const nowDate = new Date()
+// const nextDate = new Date()
+// nextDate.setDate(nowDate.getDate() + 1)
 
-const startDate = ref(formatDate(nowDate))
-const endDate = ref(formatDate(nextDate))
+//pinia管理数据
+const mainStore = useMainStore()
+const { startDate,endDate } =storeToRefs(mainStore)
+
+//使用computed, startDateStr取决于其他数据
+const startDateStr = computed(()=>formatDate(startDate.value))
+const endDateStr = computed(()=>formatDate(endDate.value))
 //差值
-const rangeDay = ref(rangeDate(nowDate, nextDate))
+const rangeDay = ref(rangeDate(startDate.value, endDate.value))
 //日历组件用于选择日期或日期区间
 const show = ref(false)
 
 const onConfirm = (value) => {
   const selectStart = value[0]
   const selectEnd = value[1]
+//1.在组件内部数据
   //日期选择,格式化日期
-  startDate.value = formatDate(selectStart)
-  endDate.value = formatDate(selectEnd)
+  // startDate.value = formatDate(selectStart)
+  // endDate.value = formatDate(selectEnd)
+
+//2.pinia Store中数据
+  mainStore.startDate = selectStart
+  mainStore.endDate = selectEnd
   //选择后的差值
   rangeDay.value = rangeDate(selectStart, selectEnd)
   //隐藏日历
@@ -57,6 +67,7 @@ const onConfirm = (value) => {
 
 //使用store管理
 import useHomeStore from "@/stores/modules/home.js";
+import useMainStore from "@/stores/modules/main.js";
 const homeStore = useHomeStore()
 const { hotSugData } = storeToRefs(homeStore)
 
@@ -89,7 +100,7 @@ const searchBtnClick=()=>{
     <div class="start">
       <span class="tip">入住</span>
       <!-- 今天-->
-      <span class="data">{{ startDate }}</span>
+      <span class="data">{{ startDateStr }}</span>
     </div>
     <div class="mid">
       <span class="tip">共{{ rangeDay }}晚</span>
@@ -97,7 +108,7 @@ const searchBtnClick=()=>{
     <div class="end">
       <span class="tip">离店</span>
       <!-- 明天-->
-      <span class="data">{{ endDate }}</span>
+      <span class="data">{{ endDateStr }}</span>
     </div>
   </div>
 
