@@ -1,14 +1,35 @@
 <script setup>
 import useMainStore from "@/stores/modules/main.js";
 import {storeToRefs} from "pinia";
-import {computed} from "vue";
-import {formatDate} from "@/utils/formatDate.js";
-
+import {computed, ref} from "vue";
+import {formatDate, rangeDate} from "@/utils/formatDate.js";
+import {useRouter} from "vue-router";
+const router=useRouter()
 const mainStore = useMainStore()
 const { startDate,endDate } =storeToRefs(mainStore)
-
 const startDateStr = computed(()=>formatDate(startDate.value,'MM.DD'))
 const endDateStr = computed(()=>formatDate(endDate.value,'MM.DD'))
+
+const show = ref(false)
+
+const onConfirm = (value) => {
+  const selectStart = value[0]
+  const selectEnd = value[1]
+  mainStore.startDate = selectStart
+  mainStore.endDate = selectEnd
+  show.value = false
+}
+
+const searchBtnClick=()=>{
+  router.push({
+    path:'/search',
+    query:{
+      startDate:startDate.value,
+      endDate:endDate.value,
+      // currentCity 可以使用pinia
+    }
+  })
+}
 </script>
 
 <template>
@@ -24,10 +45,16 @@ const endDateStr = computed(()=>formatDate(endDate.value,'MM.DD'))
       </div>
     </div>
     <div class="keyword">
-      关键字/民宿名/位置
+      <input type="text" placeholder="关键字/民宿名/位置">
     </div>
-    <div class="search-icon ">
+    <div class="search-icon "  @click="searchBtnClick">
       <van-icon name="search"  size="20"/>
+    </div>
+
+    <div class="showTime">
+      <van-calendar v-model:show="show" type="range" color="#ff9854" :round="false" @confirm="onConfirm"
+                    :show-confirm="false">
+      </van-calendar>
     </div>
 </div>
 </template>
@@ -49,6 +76,10 @@ const endDateStr = computed(()=>formatDate(endDate.value,'MM.DD'))
   display: flex;
   align-items: center;
   margin-left: 10px;
+}
+input{
+  border-style: none;
+  background-color: #f3f3f3;
 }
 .search-icon{
   display: flex;

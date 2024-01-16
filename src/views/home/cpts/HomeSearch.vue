@@ -145,12 +145,7 @@ const searchBtnClick=()=>{
 
 
 <style scoped>
-.showTime {
-  /*
-    显示日期选择时，满屏
-     */
-  --van-calendar-popup-height: 100% !important;
-}
+
 
 .location {
   display: flex;

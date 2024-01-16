@@ -1,3 +1,9 @@
+:root{
+    /*
+      显示日期选择时，满屏
+       */
+    --van-calendar-popup-height: 100% !important;
+}
 body,h1,h2,h3,h4,h5,h6,ul,li{
     margin:0;
     padding:0
