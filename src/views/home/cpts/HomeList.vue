@@ -3,9 +3,17 @@ import useHomeStore from "@/stores/modules/home.js";
 import {storeToRefs} from "pinia";
 import HomeV9 from "@/components/homeListCpns/HomeV9.vue";
 import HomeV3 from "@/components/homeListCpns/HomeV3.vue";
+import {useRouter} from "vue-router";
 
 const homeStore = useHomeStore()
 const{ homeList } =storeToRefs(homeStore)
+
+
+const router=useRouter()
+const itemClick=(item)=>{
+  // console.log(item)
+  router.push('/detail/'+item.houseId)
+}
 </script>
 
 <template>
@@ -14,8 +22,16 @@ const{ homeList } =storeToRefs(homeStore)
     <div class="list">
       <template v-for="(item,index) in homeList" :key="item.data.houseId">
         <!-- discoveryContentType  判断是哪个类别-->
-        <home-v9 v-if="item.discoveryContentType === 9" :homeListData="item.data"/>
-        <home-v3 v-else-if="item.discoveryContentType === 3" :homeListData="item.data"/>
+        <home-v9
+            v-if="item.discoveryContentType === 9"
+            :homeListData="item.data"
+            @click="itemClick(item.data)"
+        />
+        <home-v3
+            v-else-if="item.discoveryContentType === 3"
+            :homeListData="item.data"
+            @click="itemClick(item.data)"
+        />
       </template>
     </div>
   </div>

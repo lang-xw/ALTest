@@ -37,6 +37,13 @@ const router=createRouter({
             meta:{
                 HideTabbar: true
             }
+        },
+        {
+            path:'/detail/:id',//动态绑定每一个item
+            component:()=>import('../views/details/detail.vue'),
+            meta:{
+                HideTabbar: true
+            }
         }
     ]
 })

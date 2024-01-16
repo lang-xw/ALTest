@@ -42,7 +42,7 @@ export default function pageScroll(){
 
         scrollTop.value=document.documentElement.scrollTop+1
         //一个元素的 scrollTop 值是这个元素的内容顶部（卷起来的）到它的视口可见内容（的顶部）的距离的度量
-        console.log('正在滚动')
+        // console.log('正在滚动')
         scrollHeight.value=document.documentElement.scrollHeight
         //Element.scrollHeight 只读属性是一个元素内容高度的度量，包括由于溢出导致的视图中不可见内容
 
