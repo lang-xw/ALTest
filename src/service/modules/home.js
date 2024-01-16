@@ -13,3 +13,13 @@ export function getCategories(){
         url:'home/categories'
     })
 }
+
+export function getHomeList(currentPage){
+    return AxRequest.get({
+        url:'home/houselist',
+        params:{
+            //第几页数据，有较多数据时，按页请求数据，
+            page:currentPage
+        }
+    })
+}

@@ -1,11 +1,13 @@
 import { defineStore } from 'pinia'
-import {getCategories, getHotSug} from '@/service/index.js'
+import {getCategories, getHomeList, getHotSug} from '@/service/index.js'
 
 
 const useHomeStore = defineStore('home',{
     state:()=>({
         hotSugData:[],
-        categories:{}
+        categories:[],
+        currentPage:1,
+        homeList:[]
     }),
     actions:{
         async fetchHotSug(){
@@ -15,9 +17,17 @@ const useHomeStore = defineStore('home',{
         },
         async fetchCategories(){
             const res = await getCategories()
-            console.log(res,res.data)
+            // console.log(res,res.data)
             this.categories=res.data
-}
+        },
+        async fetchHomeList(){
+            const res = await getHomeList(this.currentPage)
+            // console.log(res,res.data)
+            //分页数据请求
+            this.homeList.push(...res.data)
+            this.currentPage++
+        }
+
     }
 })
 

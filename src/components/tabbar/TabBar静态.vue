@@ -5,19 +5,19 @@
 <template>
   <div class="tabbar">
     <div class="tabbar-item">
-      <img src="../assets/img/tabhome.png" alt="">
+      <img src="../../assets/img/tabhome.png" alt="">
       <span class="text">首页</span>
     </div>
     <div class="tabbar-item">
-      <img src="../assets/img/tabfavor.png" alt="">
+      <img src="../../assets/img/tabfavor.png" alt="">
       <span class="text">收藏</span>
     </div>
     <div class="tabbar-item">
-      <img src="../assets/img/taborder.png" alt="">
+      <img src="../../assets/img/taborder.png" alt="">
       <span class="text">订单</span>
     </div>
     <div class="tabbar-item">
-      <img src="../assets/img/tabmessage.png" alt="">
+      <img src="../../assets/img/tabmessage.png" alt="">
       <span class="text">消息</span>
     </div>
   </div>
