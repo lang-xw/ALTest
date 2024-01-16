@@ -18,7 +18,7 @@ const router=createRouter({
         },
         {
             path:'/message',
-            component:()=>import("../views/ message/meaasge.vue")   //路由懒加载
+            component:()=>import("@/views/message/meaasge.vue")   //路由懒加载
         },
         {
             path:'/favor',
